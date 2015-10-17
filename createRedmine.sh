@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
 
-PG_REDMINE_NAME=${PG_REDMINE_NAME:-pg-redmine}
-POSTGRES_IMAGE=${POSTGRES_IMAGE:postgres}
-REDMINE_NAME=${REDMINE_NAME:-redmine}
-REDMINE_IMAGE_NAME=${REDMINE_IMAGE_NAME:-sameersbn/redmine}
-REDMINE_VOLUME=${REDMINE_VOLUME:-redmine-volume}
-GERRIT_VOLUME=${GERRIT_VOLUME:-gerrit-volume}
+PG_REDMINE_NAME=${1:-pg-redmine}
+POSTGRES_IMAGE=${2:postgres}
+REDMINE_NAME=${3:-redmine}
+REDMINE_IMAGE_NAME=${4:-sameersbn/redmine}
+REDMINE_VOLUME=${5:-redmine-volume}
+GERRIT_VOLUME=${6:-gerrit-volume}
 
 NGINX_MAX_UPLOAD_SIZE=${NGINX_MAX_UPLOAD_SIZE:-200m}
 REDMINE_SYS_DATA_SQL=redmine-init-system.sql
