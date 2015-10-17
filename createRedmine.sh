@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+BASEDIR=$(readlink -f $(dirname $0))
 PG_REDMINE_NAME=${1:-pg-redmine}
 POSTGRES_IMAGE=${2:postgres}
 REDMINE_NAME=${3:-redmine}
@@ -14,10 +14,10 @@ REDMINE_DEMO_DATA_SQL=redmine-init-demo.sql
 INIT_DATE=`date +%Y-%m-%d\ %H:%M:%S.%N|cut -c 1-26`
 
 # Redmine init data
-sed -e "s/{INIT_DATE}/${INIT_DATE}/g" ~/redmine-docker/${REDMINE_SYS_DATA_SQL}.template > ~/redmine-docker/${REDMINE_SYS_DATA_SQL}
-sed -i "s/{HOST_IP}/${LDAP_SERVER}/g" ~/redmine-docker/${REDMINE_SYS_DATA_SQL}
-sed -i "s/{LDAP_ACCOUNTBASE}/${LDAP_ACCOUNTBASE}/g" ~/redmine-docker/${REDMINE_SYS_DATA_SQL}
-sed -e "s/{INIT_DATE}/${INIT_DATE}/g" ~/redmine-docker/${REDMINE_DEMO_DATA_SQL}.template > ~/redmine-docker/${REDMINE_DEMO_DATA_SQL}
+sed -e "s/{INIT_DATE}/${INIT_DATE}/g" ${BASEDIR}/${REDMINE_SYS_DATA_SQL}.template > ${BASEDIR}/${REDMINE_SYS_DATA_SQL}
+sed -i "s/{HOST_IP}/${LDAP_SERVER}/g" ${BASEDIR}/${REDMINE_SYS_DATA_SQL}
+sed -i "s/{LDAP_ACCOUNTBASE}/${LDAP_ACCOUNTBASE}/g" ${BASEDIR}/${REDMINE_SYS_DATA_SQL}
+sed -e "s/{INIT_DATE}/${INIT_DATE}/g" ${BASEDIR}/${REDMINE_DEMO_DATA_SQL}.template > ${BASEDIR}/${REDMINE_DEMO_DATA_SQL}
 
 # Start PostgreSQL.
 docker run \
@@ -26,8 +26,8 @@ docker run \
 -e POSTGRES_USER=redmine \
 -e POSTGRES_PASSWORD=redmine \
 -e POSTGRES_DB=redmine \
--v ~/redmine-docker/${REDMINE_SYS_DATA_SQL}:/${REDMINE_SYS_DATA_SQL}:ro \
--v ~/redmine-docker/${REDMINE_DEMO_DATA_SQL}:/${REDMINE_DEMO_DATA_SQL}:ro \
+-v ${BASEDIR}/${REDMINE_SYS_DATA_SQL}:/${REDMINE_SYS_DATA_SQL}:ro \
+-v ${BASEDIR}/${REDMINE_DEMO_DATA_SQL}:/${REDMINE_DEMO_DATA_SQL}:ro \
 -d ${POSTGRES_IMAGE}
 
 while [ -z "$(docker logs ${PG_REDMINE_NAME} 2>&1 | grep 'autovacuum launcher started')" ]; do
