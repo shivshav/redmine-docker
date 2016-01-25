@@ -11,7 +11,7 @@ LDAP_SERVER=${7:-openldap}
 LDAP_ACCOUNTBASE=${8:-ou=accounts,dc=demo,dc=com} #TODO: Use the env vars to set this
 #REDMINE_PLUGIN_DIR=/home/redmine/data/plugins
 
-source ./config
+source ${BASEDIR}/config
 
 # Redmine init data
 sed -e "s/{INIT_DATE}/${INIT_DATE}/g" ${BASEDIR}/${REDMINE_SYS_DATA_SQL}.template > ${BASEDIR}/${REDMINE_SYS_DATA_SQL}
