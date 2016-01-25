@@ -29,7 +29,7 @@ source ${BASEDIR}/config
 
 
 echo "Coping backup to ${PG_REDMINE_NAME} process "
-docker cp ${BACKUP_DIR}/ ${PG_REDMINE_NAME}:/${BACKUP_FN} || {
+docker cp ${BACKUP_DIR}/${BACKUP_FN} ${PG_REDMINE_NAME}:/ || {
     echo "Copy failed!"
     exit 1
 }

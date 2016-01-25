@@ -9,7 +9,7 @@ source ${BASEDIR}/../../config.default
 # pull in common variables for postgres/redmine
 source ${BASEDIR}/config
 
-BACKUP_FN=`echo "$(date +%Y-%m-%d\ %H:%M:%S.%N|cut -c 1-22 | tr ' ' '_').sql"`
+BACKUP_FN=`echo "$(date +%Y-%m-%d\ %H:%M:%S.%N|cut -c 1-22 | tr ' ' '_' | tr ':' '-').sql"`
 
 echo "Beginning data dump... "
 docker exec ${PG_REDMINE_NAME} pg_dumpall -c -U ${PG_USER} -w -f ${BACKUP_FN} || { 
