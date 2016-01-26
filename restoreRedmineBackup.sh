@@ -19,9 +19,12 @@ function get_newest_file(){
 set -e
 
 BASEDIR=$(readlink -f $(dirname $0))
-BACKUP_DIR=backups
+BACKUP_DIR=${1:-backups}
 get_newest_file ${BACKUP_DIR}
 BACKUP_FN=${newest}
+
+# workaround for $1 being appended to suffix in top level config
+shift
 
 # pull in config variables for container names
 source ${BASEDIR}/../../config

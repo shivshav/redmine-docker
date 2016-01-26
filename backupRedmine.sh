@@ -1,6 +1,9 @@
 #!/bin/bash
 BASEDIR=$(readlink -f $(dirname $0))
-BACKUP_DIR=backups
+BACKUP_DIR=${1:-backups}
+
+# workaround for $1 being appended to suffix in top level config
+shift
 
 set -e
 # pull in config variables for container names
