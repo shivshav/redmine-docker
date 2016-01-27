@@ -13,8 +13,6 @@ source ${BASEDIR}/../../config.default
 # pull in common variables for postgres/redmine
 source ${BASEDIR}/config
 
-echo "${PG_USER}"
-echo "${BASEDIR}"
 BACKUP_FN=`echo "$(date +%Y-%m-%d\ %H:%M:%S.%N|cut -c 1-22 | tr ' ' '_' | tr ':' '-').sql"`
 
 echo "Beginning data dump... "
