@@ -3,18 +3,22 @@ BASEDIR=$(readlink -f $(dirname $0))
 BACKUP_DIR=${1:-backups}
 
 # workaround for $1 being appended to suffix in top level config
-shift
+if [ ! -z "$1" ]; then shift; fi
 
 set -e
+
 # pull in config variables for container names
 source ${BASEDIR}/../../config
 source ${BASEDIR}/../../config.default
 # pull in common variables for postgres/redmine
 source ${BASEDIR}/config
 
+echo "${PG_USER}"
+echo "${BASEDIR}"
 BACKUP_FN=`echo "$(date +%Y-%m-%d\ %H:%M:%S.%N|cut -c 1-22 | tr ' ' '_' | tr ':' '-').sql"`
 
 echo "Beginning data dump... "
+
 docker exec ${PG_REDMINE_NAME} pg_dumpall -c -U ${PG_USER} -w -f ${BACKUP_FN} || { 
     echo "Backup failed!"
     exit 1

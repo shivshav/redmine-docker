@@ -24,7 +24,7 @@ get_newest_file ${BACKUP_DIR}
 BACKUP_FN=${newest}
 
 # workaround for $1 being appended to suffix in top level config
-shift
+if [ ! -z "$1" ]; then shift; fi
 
 # pull in config variables for container names
 source ${BASEDIR}/../../config
