@@ -40,7 +40,7 @@ docker cp ${BACKUP_DIR}/${BACKUP_FN} ${PG_REDMINE_NAME}:/ || {
 }
 
 echo "Start restore of backup "
-docker exec ${PG_REDMINE_NAME} psql -U ${PG_USER} -f ${BACKUP_FN}  postgres 1>/dev/null || { 
+docker exec ${PG_REDMINE_NAME} psql -U ${PG_USER} -f ${BACKUP_FN} -d ${PG_DB} 1>/dev/null || { 
     echo "Backup failed!"
     exit 1
 }

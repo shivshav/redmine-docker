@@ -17,7 +17,7 @@ BACKUP_FN=`echo "$(date +%Y-%m-%d\ %H:%M:%S.%N|cut -c 1-22 | tr ' ' '_' | tr ':'
 
 echo "Beginning data dump... "
 
-docker exec ${PG_REDMINE_NAME} pg_dumpall -c -U ${PG_USER} -w -f ${BACKUP_FN} || { 
+docker exec ${PG_REDMINE_NAME} pg_dump -c -U ${PG_USER} ${PG_DB} -w -f ${BACKUP_FN} || { 
     echo "Backup failed!"
     exit 1
 }
