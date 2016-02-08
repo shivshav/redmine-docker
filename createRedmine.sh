@@ -11,10 +11,7 @@ LDAP_SERVER=${7:-openldap}
 LDAP_ACCOUNTBASE=${8:-ou=accounts,dc=demo,dc=com} #TODO: Use the env vars to set this
 #REDMINE_PLUGIN_DIR=/home/redmine/data/plugins
 
-NGINX_MAX_UPLOAD_SIZE=${NGINX_MAX_UPLOAD_SIZE:-200m}
-REDMINE_SYS_DATA_SQL=redmine-init-system.sql
-REDMINE_DEMO_DATA_SQL=redmine-init-demo.sql
-INIT_DATE=`date +%Y-%m-%d\ %H:%M:%S.%N|cut -c 1-26`
+source ${BASEDIR}/config
 
 # Redmine init data
 sed -e "s/{INIT_DATE}/${INIT_DATE}/g" ${BASEDIR}/${REDMINE_SYS_DATA_SQL}.template > ${BASEDIR}/${REDMINE_SYS_DATA_SQL}
@@ -26,9 +23,9 @@ sed -e "s/{INIT_DATE}/${INIT_DATE}/g" ${BASEDIR}/${REDMINE_DEMO_DATA_SQL}.templa
 docker run \
 --name ${PG_REDMINE_NAME} \
 -P \
--e POSTGRES_USER=redmine \
--e POSTGRES_PASSWORD=redmine \
--e POSTGRES_DB=redmine \
+-e POSTGRES_USER=${PG_USER} \
+-e POSTGRES_PASSWORD=${PG_PASSWD} \
+-e POSTGRES_DB=${PG_DB} \
 -v ${BASEDIR}/${REDMINE_SYS_DATA_SQL}:/${REDMINE_SYS_DATA_SQL}:ro \
 -v ${BASEDIR}/${REDMINE_DEMO_DATA_SQL}:/${REDMINE_DEMO_DATA_SQL}:ro \
 -d ${POSTGRES_IMAGE}
