@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+
 BASEDIR=$(readlink -f $(dirname $0))
 PG_REDMINE_NAME=${1:-pg-redmine}
 POSTGRES_IMAGE=${2:-postgres}
@@ -9,6 +10,7 @@ REDMINE_VOLUME=${5:-redmine-volume}
 GERRIT_VOLUME=${6:-gerrit-volume}
 LDAP_SERVER=${7:-openldap}
 LDAP_ACCOUNTBASE=${8:-ou=accounts,dc=demo,dc=com} #TODO: Use the env vars to set this
+#REDMINE_SYS_DATA_SQL=redmine-init-system.sql
 #REDMINE_PLUGIN_DIR=/home/redmine/data/plugins
 
 source ${BASEDIR}/config
@@ -42,7 +44,6 @@ docker run \
 ${REDMINE_IMAGE_NAME} \
 "Create Redmine volume."
 
-# TODO: Only link server when user has set env var for docker container, otherwise, we set it through sql script
 # Start Redmine.
 docker run \
 --name=${REDMINE_NAME} \
