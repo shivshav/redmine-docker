@@ -10,8 +10,9 @@ REDMINE_VOLUME=${5:-redmine-volume}
 GERRIT_VOLUME=${6:-gerrit-volume}
 LDAP_SERVER=${7:-openldap}
 LDAP_ACCOUNTBASE=${8:-ou=accounts,dc=demo,dc=com} #TODO: Use the env vars to set this
+REDMINE_ADMIN_PASSWORD=${9:-my_password}
 #REDMINE_SYS_DATA_SQL=redmine-init-system.sql
-#REDMINE_PLUGIN_DIR=/home/redmine/data/plugins
+#REDMINE_BIN_DIR=/home/redmine/redmine/bin
 
 source ${BASEDIR}/config
 
@@ -54,6 +55,7 @@ docker run \
 -e REDMINE_RELATIVE_URL_ROOT=/redmine \
 -e REDMINE_FETCH_COMMITS=hourly \
 -e NGINX_MAX_UPLOAD_SIZE=${NGINX_MAX_UPLOAD_SIZE} \
+-e REDMINE_ADMIN_PASSWORD=$REDMINE_ADMIN_PASSWORD \
 --volumes-from ${REDMINE_VOLUME} \
 --volumes-from ${GERRIT_VOLUME}:ro \
 -d ${REDMINE_IMAGE_NAME}
