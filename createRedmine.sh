@@ -11,8 +11,6 @@ GERRIT_VOLUME=${6:-gerrit-volume}
 LDAP_SERVER=${7:-openldap}
 LDAP_ACCOUNTBASE=${8:-ou=accounts,dc=demo,dc=com} #TODO: Use the env vars to set this
 REDMINE_ADMIN_PASSWORD=${9:-my_password}
-#REDMINE_SYS_DATA_SQL=redmine-init-system.sql
-#REDMINE_BIN_DIR=/home/redmine/redmine/bin
 
 source ${BASEDIR}/config
 
