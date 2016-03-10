@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e
 
-# post-install.sh vars
-REDMINE_USER=redmine
-REDMINE_GROUP=redmine
-
 # provide name of database file
 REDMINE_SYS_DATA_SQL=redmine-init-system.sql.template
 

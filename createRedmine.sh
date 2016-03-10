@@ -54,6 +54,10 @@ docker run \
 -e REDMINE_FETCH_COMMITS=hourly \
 -e NGINX_MAX_UPLOAD_SIZE=${NGINX_MAX_UPLOAD_SIZE} \
 -e REDMINE_ADMIN_PASSWORD=$REDMINE_ADMIN_PASSWORD \
+-e REDMINE_FETCH_COMMITS=disable \
 --volumes-from ${REDMINE_VOLUME} \
 --volumes-from ${GERRIT_VOLUME}:ro \
 -d ${REDMINE_IMAGE_NAME}
+
+#docker exec ${REDMINE_NAME} crontab -r -u ${REDMINE_NAME}
+
