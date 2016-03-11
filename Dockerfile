@@ -1,6 +1,8 @@
 FROM sameersbn/redmine
 MAINTAINER steve-dev@gmail.com
 
+#TODO: ONLINE/OFFLINE Paramter & git cloning source
+
 ENV REDMINE_ADMIN_PASSWORD="my_password"
 
 RUN git clone --verbose https://github.com/steve-dev/redmine_api_auth_fix.git /home/redmine/redmine/plugins/redmine_api_auth_fix

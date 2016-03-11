@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 
 BASEDIR=$(readlink -f $(dirname $0))
 PG_REDMINE_NAME=${1:-pg-redmine}
@@ -58,6 +59,3 @@ docker run \
 --volumes-from ${REDMINE_VOLUME} \
 --volumes-from ${GERRIT_VOLUME}:ro \
 -d ${REDMINE_IMAGE_NAME}
-
-#docker exec ${REDMINE_NAME} crontab -r -u ${REDMINE_NAME}
-
